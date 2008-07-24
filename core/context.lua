@@ -17,6 +17,7 @@ Roots.Context.method = createLuaFunc( function( context ) -- Context#method
 	for i=1,theNumArgs do
 		theFunc.namedArguments[i] = context.callState.message.arguments[i][1][1].identifier
 	end
+	theFunc.creationContext = context.callState.callingContext
 
 	return theFunc
 end )

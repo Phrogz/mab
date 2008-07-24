@@ -26,7 +26,15 @@ Roots.Object.self = createLuaFunc( function( context ) -- Object#self
 end )
 
 Roots.Object['=='] = createLuaFunc( 'obj2', function( context ) -- Object#==
-	return ( context.self == context.obj2 ) and Roots['true'] or Roots['false']
+	local rvalue = context.obj2
+	if not rvalue or rvalue==Roots['nil'] then
+		rvalue = slurpNextValue( context.callState )
+		if rvalue == Roots['nil'] then
+			error( "Object#== is mising a comparator" )
+		end
+	end
+	
+	return ( context.self == rvalue ) and Roots['true'] or Roots['false']
 end )
 
 Roots.Object.toString = createLuaFunc( function( context ) -- Object#toString

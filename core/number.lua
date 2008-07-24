@@ -14,7 +14,7 @@ setmetatable( runtime.number, {
 Roots.Number['+'] = createLuaFunc( 'addend', function( context ) -- Number#+
 	local lvalue = runtime.luanumber[ context.self ]
 	local rvalue = runtime.luanumber[ context.addend ]
-	if not rvalue then
+	if not rvalue or rvalue==Roots['nil'] then
 		rvalue = slurpNextValue( context.callState )
 		if rvalue == Roots['nil'] then
 			error( "Number#+ is mising an addend" )
@@ -27,7 +27,7 @@ end )
 Roots.Number['-'] = createLuaFunc( 'subtrahend', function( context ) -- Number#-
 	local lvalue = runtime.luanumber[ context.self ]
 	local rvalue = runtime.luanumber[ context.subtrahend ]
-	if not rvalue then
+	if not rvalue or rvalue==Roots['nil'] then
 		rvalue = slurpNextValue( context.callState )
 		if rvalue == Roots['nil'] then
 			error( "Number#- is mising a subtrahend" )
@@ -40,7 +40,7 @@ end )
 Roots.Number['>'] = createLuaFunc( 'rvalue', function( context ) -- Number#>
 	local lvalue = runtime.luanumber[ context.self ]
 	local rvalue = runtime.luanumber[ context.rvalue ]
-	if not rvalue then
+	if not rvalue or rvalue==Roots['nil'] then
 		rvalue = slurpNextValue( context.callState )
 		if rvalue == Roots['nil'] then
 			error( "Number#> is mising an rvalue" )
@@ -53,7 +53,7 @@ end )
 Roots.Number['<'] = createLuaFunc( 'rvalue', function( context ) -- Number#<
 	local lvalue = runtime.luanumber[ context.self ]
 	local rvalue = runtime.luanumber[ context.rvalue ]
-	if not rvalue then
+	if not rvalue or rvalue==Roots['nil'] then
 		rvalue = slurpNextValue( context.callState )
 		if rvalue == Roots['nil'] then
 			error( "Number#< is mising an rvalue" )
@@ -66,7 +66,7 @@ end )
 Roots.Number['*'] = createLuaFunc( 'multiplicand', function( context ) -- Number#*
 	local lvalue = runtime.luanumber[ context.self ]
 	local rvalue = runtime.luanumber[ context.multiplicand ]
-	if not rvalue then
+	if not rvalue or rvalue==Roots['nil'] then
 		rvalue = slurpNextValue( context.callState )
 		if rvalue == Roots['nil'] then
 			error( "Number#* is mising a multiplicand" )
@@ -79,7 +79,7 @@ end )
 Roots.Number['/'] = createLuaFunc( 'divisor', function( context ) -- Number#/
 	local lvalue = runtime.luanumber[ context.self ]
 	local rvalue = runtime.luanumber[ context.divisor ]
-	if not rvalue then
+	if not rvalue or rvalue==Roots['nil'] then
 		rvalue = slurpNextValue( context.callState )
 		if rvalue == Roots['nil'] then
 			error( "Number#/ is mising a divisor" )

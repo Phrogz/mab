@@ -40,26 +40,27 @@ end )
 -- TODO: holycrap these are brutal.
 Roots.Array.each = createLuaFunc( function( context ) -- Array#each
 	local args = context.callState.message.arguments
-	for i,v in ipairs(context.self) do
+
+	runtime.addInheritance( context, context.callState.callingContext )
+	for _,valueObject in ipairs(context.self) do
 	  -- What could possibly go wrong?
-		context[ runtime.luastring[args[1][1][1].identifier] ] = v
-		for i,v in ipairs(args[2]) do
-			evaluateExpression( context, context, v )
-		end
+		context[ runtime.luastring[args[1][1][1].identifier] ] = valueObject
+		evaluateExpression( context, context, args[2] )
 	end
+	return context.self
 end )
 
 Roots.Array.eachWithIndex = createLuaFunc( function( context ) -- Array#eachWithIndex
 	local args = context.callState.message.arguments
-	for i,v in ipairs(context.self) do
+	runtime.addInheritance( context, context.callState.callingContext )
+	for i,valueObject in ipairs(context.self) do
 	  -- What could possibly go wrong?
-		context[ runtime.luastring[args[1][1][1].identifier] ] = v
+		context[ runtime.luastring[args[1][1][1].identifier] ] = valueObject
 	  -- What could possibly go wrong?
 		context[ runtime.luastring[args[2][1][1].identifier] ] = runtime.number[i]
-		for i,v in ipairs(args[3]) do
-			evaluateExpression( context, context, v )
-		end
+		evaluateExpression( context, context, args[3] )
 	end
+	return context.self
 end )
 
 Roots.Array.toString = createLuaFunc( function( context ) -- Array#toString

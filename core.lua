@@ -124,7 +124,7 @@ function executeFunction( functionObject, receiver, message, callingContext )
 		callingContext = Roots.Lawn
 	end
 
-	local context = runtime.childFrom( callingContext )
+	local context = runtime.childFrom( functionObject.creationContext or Roots.Lawn )
 	context.self = receiver
 	context.callState = runtime.childFrom( Roots.CallState )
 	context.callState.target  = receiver
