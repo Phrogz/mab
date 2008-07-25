@@ -87,8 +87,8 @@ if arg.sourcefile then
 	LastParsedObjectIndex = #runtime.ObjectById
 	
 	-- if arg.debugLevel >= 3 then
-	-- 	print( "Parsed program tree:" )
-	-- 	core.printObjectAsXML( Lawn.program )
+		print( "Parsed program tree:" )
+		core.printObjectAsXML( Lawn.program )
 	-- end
 	
 	core.eval( Lawn, Lawn, Lawn.program )

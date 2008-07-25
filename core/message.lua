@@ -2,22 +2,17 @@ Roots.Message = runtime.childFrom( Roots.Object, "Message" )
 
 Roots.Message.new = createLuaFunc( "identifier", function( context ) -- Message#new
 	local callingContext = context.callState.callingContext
-	-- TODO: perhaps stop trying to be so DRY and just runtime.childFrom( Roots.Message )
-	-- ...or wait, why isn't this using createMessage()?
-	local theMessage = executeFunction( Roots.Object.new, context.self, messageCache['new'], callingContext )
-	if context.identifier ~= Roots['nil'] then
-		theMessage.identifier = context.identifier
-	end
+	local messageName = runtime.luastring[ context.identifier ] or '(anonymous message)'
+	local message = createMessage( messageName )
 
-	theMessage.arguments = sendMessageAsString( Roots.ArgList, 'new' )
 	-- Hard-set values to allow currying
 	-- TODO: perhaps allow storing as chunks in the future?
 	local args = context.callState.message.arguments
 	for i=2, #args do
-		theMessage.arguments[i-1] = eval( callingContext, callingContext, args[i] )
+		core.addChildren( args, eval( callingContext, callingContext, args[i] ) )
 	end
 	
-	return theMessage
+	return message
 end )
 
 Roots.Message.addArgument = createLuaFunc( "inArgValue", function( context ) -- Message#addArgument

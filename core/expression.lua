@@ -1,11 +1,9 @@
-Roots.Expression = runtime.childFrom( Roots.Array, "Expression" )
-
 Roots.Expression.new = createLuaFunc( function( context ) -- Expression#new
 	-- Re-use existing expression created for the first chunk argument, if available
 	local args = context.callState.message.arguments
-	local theExpression = (#args > 0) and (#args[1] > 0 ) and args[1][1] or executeFunction( Roots.Object.new, context.self, messageCache['new'], context.callState.callingContext )
-	theExpression.creationContext = context.callState.callingContext
-	return theExpression
+	local expression = (#args > 0) and #args[1] or runtime.childFrom( Roots.Expression )
+	expression.creationContext = context.callState.callingContext
+	return expression
 end )
 
 Roots.Expression.appendMessage = Roots.Array.push

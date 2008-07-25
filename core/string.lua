@@ -1,5 +1,5 @@
 Roots.String['+'] = createLuaFunc( 'stringToAppend', function( context ) -- String#+
-	return runtime.string[ runtime.luastring[context.self] .. toLuaString( context.stringToAppend ) ]
+	return runtime.string[ runtime.luastring[context.self] .. runtime.luastring[ context.stringToAppend ] ]
 end )
 
 Roots.String['*'] = createLuaFunc( 'reps', function( context ) -- String#*

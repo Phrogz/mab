@@ -3,7 +3,7 @@ Roots.Context.p = createLuaFunc( function( context ) -- Context#p
 	local callingContext = context.callState.callingContext
 	for i=1, #args do
 		local theExpressionValue = eval( callingContext, callingContext, args[i] )
-		print( toLuaString( theExpressionValue ) )
+		print( runtime.luastring[ theExpressionValue ] )
 	end
 	return Roots['nil']
 end )

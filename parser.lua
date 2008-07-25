@@ -103,7 +103,7 @@ core.Roots.String.interpolate = core.createLuaFunc( function( context )
 	str = string.gsub( str, "#(%b{})", function( chunkWithBrackets )
 		local chunk = parse( string.sub( chunkWithBrackets, 2, -2 ) )
 		local value = core.eval( context.callState.callingContext, context.callState.callingContext, chunk )
-		return core.toLuaString( value )
+		return runtime.luastring[ value ]
 	end)
 	return runtime.string[ str ]
 end )

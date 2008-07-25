@@ -33,7 +33,7 @@ Roots.Array.join = createLuaFunc( 'separator', function( context ) -- Array#join
 	for i,message in ipairs(context.self) do
 		theMessages[i] = toObjString( message )
 	end
-	local theSeparator = context.separator ~= Roots['nil'] and toLuaString( context.separator ) or runtime.luastring[ ' ' ]
+	local theSeparator = context.separator ~= Roots['nil'] and runtime.luastring[ context.separator ] or runtime.luastring[ ' ' ]
 	return runtime.string[ table.concat( theMessages, theSeparator ) ]
 end )
 

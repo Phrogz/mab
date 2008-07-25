@@ -5,7 +5,7 @@ end )
 Roots.Object.setSlot = createLuaFunc( 'slotName', 'slotValue', function( context ) -- Object#setSlot
 	-- TODO: get via messages?
 	-- TODO: what about non-string slots? And should string objects be indexed by that table or the string?
-	local slotName = toLuaString( context.slotName )
+	local slotName = runtime.luastring[ context.slotName ]
 	context.self[ slotName ] = context.slotValue
 	return context.slotValue
 end )
@@ -13,7 +13,7 @@ end )
 Roots.Object.getSlot = createLuaFunc( 'slotName', function( context ) -- Object#getSlot
 	-- TODO: get via messages?
 	-- TODO: should I really be casting to a string always? 
-	local slotName = toLuaString( context.slotName )
+	local slotName = runtime.luastring[ context.slotName ]
 	return context.self[ slotName ] or Roots['nil']
 end )
 

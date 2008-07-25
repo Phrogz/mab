@@ -40,7 +40,7 @@ function setup()
 		local args = context.callState.message.arguments
 		for i=1, #args do
 			local theValue = core.eval( context.callState.callingContext, context.callState.callingContext, args[i] )
-			runtime.stdout = runtime.stdout .. core.toLuaString( theValue ) .. "\n"
+			runtime.stdout = runtime.stdout .. runtime.luastring[ theValue ] .. "\n"
 		end
 		return core.Roots['nil']
 	end )

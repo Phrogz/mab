@@ -17,13 +17,13 @@ setmetatable( runtime.string, {
 } )
 
 runtime.Meta.__tostring = function( object )
-  -- return toLuaString( object ) or "--nil--"
+  -- return runtime.luastring[ object ] or "--nil--"
   if runtime.luastring[object] then
     return "'"..runtime.luastring[object].."'"
   elseif object == String then
     return runtime.luastring[object.__name]
   else
-  	return runtime.luastring[ sendMessage( Roots.Lawn, object, messageCache['toString'] ) ]
+  	return runtime.luastring[ eval( Roots.Lawn, object, messageCache['toString'] ) ] or '???'
   end
 end
 
