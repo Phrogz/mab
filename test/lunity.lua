@@ -176,7 +176,8 @@ function __runAllTests(testSuite)
 		print( testSuite._NAME )
 		print( string.rep('=',78) )
 	end
-	
+	io.stdout:flush()
+
 	local theTestNames = {}
 	for testName,test in pairs(testSuite) do
 		if type(test)=='function' and type(testName)=='string' and (testName:find("^test") or testName:find("test$")) then
@@ -184,7 +185,7 @@ function __runAllTests(testSuite)
 		end
 	end
 	table.sort(theTestNames)
-	
+
 	local theSuccessCount = 0
 	for _,testName in ipairs(theTestNames) do
 		local testScratchpad = {}
@@ -205,7 +206,8 @@ function __runAllTests(testSuite)
 				print("FAIL!")
 				print( errorMessage )
 			end
-		end		 
+		end
+		io.stdout:flush()
 		if testSuite.teardown then testSuite.teardown( testScratchpad ) end
 	end
 	if lunity.useHTML then
@@ -213,24 +215,25 @@ function __runAllTests(testSuite)
 	else
 		print( string.rep( '-', 78 ) )
 	end
-	
+
 	print( string.format( "%d/%d tests passed (%0.1f%%)",
 		theSuccessCount,
 		#theTestNames,
 		100 * theSuccessCount / #theTestNames
 	) )
-	
+
 	if lunity.useHTML then
 		print( "<br>" )
 	end
-	
+
 	print( string.format( "%d total successful assertion%s",
 		lunity.__assertsPassed,
 		lunity.__assertsPassed == 1 and "" or "s"
 	) )
-	
+
 	if not lunity.useHTML then
 		print( "" )
 	end
-	
+	io.stdout:flush()
+
 end
